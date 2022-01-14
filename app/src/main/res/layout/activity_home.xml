@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/container_home"
+    tools:context=".HomeActivity">
+
+    <Button
+        android:id="@+id/buttonhelpme"
+        android:layout_width="161dp"
+        android:layout_height="94dp"
+        android:layout_marginEnd="128dp"
+        android:layout_marginBottom="124dp"
+        android:text="Help Me!!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
