@@ -28,6 +28,9 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.ktx.Firebase;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,14 +61,17 @@ public class HelpMeActivity extends AppCompatActivity {
     FusedLocationProviderClient fusedLocationProviderClient;
     private TextToSpeech mTTS;
 
+    private FirebaseUser fuser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help_me);
 
-        getSupportActionBar().hide();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         
+        fuser = FirebaseAuth.getInstance().getCurrentUser();
+
         tv_lat = findViewById(R.id.tv_lat);
         tv_lon = findViewById(R.id.tv_lon);
         tv_altitude = findViewById(R.id.tv_altitude);
@@ -202,7 +208,7 @@ public class HelpMeActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                joinMeeting(HelpMeActivity.this, "6875350221", "Iamraghav", "Patient");
+                joinMeeting(HelpMeActivity.this, "6875350221", "Iamraghav", fuser.getDisplayName());
                 Log.d("Handler", "Running Handler");
             }
         }, 28000);

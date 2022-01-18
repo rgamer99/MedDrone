@@ -17,23 +17,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ProfileActivity2"
-            android:exported="false" />
-        <activity
-            android:name=".ChangeCred"
-            android:exported="false" />
-        <activity
-            android:name=".ProfileActivity"
+            android:name=".HomeActivity"
             android:exported="false" />
         <activity
             android:name=".MainKotlinActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
-            android:exported="false" />
-        <activity
             android:name=".HelpMeActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AnimationActivity"
             android:exported="true">

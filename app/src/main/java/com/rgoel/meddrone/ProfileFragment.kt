@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.annotation.NonNull
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -39,7 +41,6 @@ class ProfileFragment : Fragment() {
 
                 email_of_user.setText(user.email)
                 name_of_user.setText(user.displayName)
-                picture_of_user.setImageURI(photoUrl)
             }
         }
 
@@ -61,11 +62,19 @@ class ProfileFragment : Fragment() {
         }
 
         view.findViewById<Button>(R.id.logout).setOnClickListener {
-            Firebase.auth.signOut()
-            Toast.makeText(context, "Logout Successful!!", Toast.LENGTH_SHORT).show()
-            var navRegister = activity as FragmentNavigation
-            navRegister.navigateFrag(LoginHomeFragment(), false)
+            if (user != null) {
+                Firebase.auth.signOut()
+                Toast.makeText(context, "Logout Successful!!", Toast.LENGTH_SHORT).show()
+                activity?.let {
+                    val intent = Intent (it, MainKotlinActivity::class.java)
+                    it.startActivity(intent)
+                }
+            } else {
+                var navRegister = activity as FragmentNavigation
+                navRegister.navigateFrag(LoginHomeFragment(), false)
+            }
         }
+
         return view
     }
 }

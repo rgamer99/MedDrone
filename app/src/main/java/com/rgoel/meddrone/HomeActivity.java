@@ -1,39 +1,91 @@
 package com.rgoel.meddrone;
 
-import android.Manifest;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-public class HomeActivity extends AppCompatActivity {
+import android.Manifest;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
-    private static final int PERMISSIONS_FINE_LOCATION = 99;
-    private Button buttonhelpme;
+import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        MaterialToolbar toolBar = findViewById(R.id.topAppbar);
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.navigation_view);
 
-        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, PERMISSIONS_FINE_LOCATION);
+        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 99);
 
-
-        buttonhelpme = findViewById(R.id.buttonhelpme);
-        buttonhelpme.setOnClickListener(new View.OnClickListener() {
+        toolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                openHelpMeActivity();
+            public void onClick(View v) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.frameLayout, new HomeMainFragment());
+        fragmentTransaction.commit();
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                int id = item.getItemId();
+
+                drawerLayout.closeDrawer(GravityCompat.START);
+                switch(id)
+                {
+
+                    case R.id.home:
+                        item.setChecked(true);
+                        replaceFragment(new HomeMainFragment());
+                        break;
+                    case R.id.shop:
+                        item.setChecked(true);
+                        replaceFragment(new ShoppingFragment());
+                        break;
+                    case R.id.profile:
+                        item.setChecked(true);
+                        replaceFragment(new ProfileFragment());
+                        break;
+                    case R.id.about_us:
+                        item.setChecked(true);
+                        replaceFragment(new AboutUsFragment());
+
+                    default:
+                        return true;
+
+                }
+
+                return true;
+
             }
         });
     }
 
-    public void openHelpMeActivity() {
-        Intent intent = new Intent(this, HelpMeActivity.class);
-        startActivity(intent);
+    private void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.frameLayout, fragment);
+        fragmentTransaction.commit();
     }
 }

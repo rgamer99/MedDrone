@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 
+import java.util.Objects;
+
 public class AnimationActivity extends AppCompatActivity {
 
     @Override
@@ -14,14 +16,13 @@ public class AnimationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animation);
 
-        getSupportActionBar().hide();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         Thread thread = new Thread() {
 
             public void run() {
                 try {
-                    Thread.sleep(5000);
+                    Thread.sleep(2000);
                 }
                 catch (Exception e) {
                     e.printStackTrace();

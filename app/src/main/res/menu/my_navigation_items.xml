@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+
+    <item android:id="@+id/home"
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
+    <item android:id="@+id/profile"
+        android:icon="@drawable/ic_profile"
+        android:title="Profile" />
+    <item android:id="@+id/shop"
+        android:icon="@drawable/ic_shop_for_medicines"
+        android:title="Shop for Medicines" />
+    <item android:id="@+id/about_us"
+        android:icon="@drawable/ic_about_us"
+        android:title="About Us" />
+
+
+    </group>
+</menu>

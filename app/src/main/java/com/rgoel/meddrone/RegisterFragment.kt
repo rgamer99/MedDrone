@@ -19,6 +19,8 @@ import androidx.appcompat.content.res.AppCompatResources
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_register.*
 
@@ -28,6 +30,8 @@ class RegisterFragment : Fragment() {
     private lateinit var cnfPassword: EditText
     private lateinit var user_name: EditText
     private lateinit var fAuth: FirebaseAuth
+    private var mDatabaseReference: DatabaseReference? = null
+    private var mDatabase: FirebaseDatabase? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +44,9 @@ class RegisterFragment : Fragment() {
         cnfPassword = view.findViewById(R.id.reg_cnf_password)
         user_name = view.findViewById(R.id.reg_name)
         fAuth = Firebase.auth
+
+        mDatabase = FirebaseDatabase.getInstance()
+        mDatabaseReference = mDatabase!!.reference!!.child("Users")
 
         view.findViewById<Button>(R.id.btn_login_reg).setOnClickListener {
             var navRegister = activity as FragmentNavigation
@@ -108,7 +115,7 @@ class RegisterFragment : Fragment() {
             if(task.isSuccessful){
                 val user = Firebase.auth.currentUser
                 val profileUpdates = userProfileChangeRequest {
-                    displayName = user_name.toString()
+                    displayName = user_name.text.toString()
                 }
 
                 user!!.updateProfile(profileUpdates)

@@ -20,6 +20,8 @@
     <string name="issue_prompt">Choose the issue most prevalent in your area:-</string>
     <string name="Open">Open Drawer</string>
     <string name="Close">Close Drawer</string>
+    <string name="close">Close Drawer</string>
+    <string name="open">Open Drawer</string>
 
     <string-array name="issue_arrays">
         <item>Road Accident</item>
