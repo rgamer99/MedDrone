@@ -188,30 +188,38 @@ public class HelpMeActivity extends AppCompatActivity {
         else {
             tv_altitude.setText("Not Available");
         }
-        (new Handler()).postDelayed(this::updateUIValuesInnerMethod, 1000);
         double shortest_time_taken = Shortest_Time_Taken(user_lat, user_long);
         int short_tt = (int) Math.round(shortest_time_taken);
         String hitext = "ड्रोन आपके पास " + short_tt + " सेकंड में पहुंचेगा।";
         String entext = "The drone will reach you in " + short_tt + " seconds.";
         String japtext = "ドローンがあなたに届きます " + short_tt + " 秒。";
         text_for_user.setText(hitext + "\n" + entext + "\n" + japtext);
-        String hiaudio = hitext + "मैं दोहराता हूँ" + hitext;
-        String enaudio = entext + "I repeat" + entext;
-        String japaudio = japtext + "繰り返します" + japtext;
-        mTTS.setLanguage(new Locale("hi"));
-        speak1(hiaudio);
-        mTTS.setLanguage(new Locale("en"));
-        speak1(enaudio);
-        mTTS.setLanguage(new Locale("ja"));
-        speak1(japaudio);
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        final Handler handler2 = new Handler();
+        handler2.postDelayed(new Runnable() {
             @Override
             public void run() {
-                joinMeeting(HelpMeActivity.this, "6875350221", "Iamraghav", fuser.getDisplayName());
+                tv_updates.setText("Off");
+                sw_locationupdates.setChecked(false);
                 Log.d("Handler", "Running Handler");
+                String hiaudio = hitext + "मैं दोहराता हूँ" + hitext;
+                String enaudio = entext + "I repeat" + entext;
+                String japaudio = japtext + "繰り返します" + japtext;
+                mTTS.setLanguage(new Locale("hi"));
+                speak1(hiaudio);
+                mTTS.setLanguage(new Locale("en"));
+                speak1(enaudio);
+                mTTS.setLanguage(new Locale("ja"));
+                speak1(japaudio);
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        joinMeeting(HelpMeActivity.this, "6875350221", "Iamraghav", fuser.getDisplayName());
+                        Log.d("Handler", "Running Handler");
+                    }
+                }, 28000);
             }
-        }, 28000);
+        }, 1000);
     }
 
     @Override
