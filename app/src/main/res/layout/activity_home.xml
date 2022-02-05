@@ -22,8 +22,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:title="MedDrone"
-                app:titleTextColor="@color/white"
-                app:navigationIcon="@drawable/ic_baseline_menu_24" />
+                app:titleTextColor="#e06666"
+                app:navigationIcon="@drawable/ic_baseline_menu_24"
+                android:background="#134f5c"/>
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -39,10 +40,13 @@
         android:id="@+id/navigation_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
         android:layout_marginTop="40dp"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/my_navigation_items"
+        android:background="@color/primarybackground"
+        android:layout_gravity="start"
+        app:itemTextColor="@color/colorPrimary"
+        app:itemIconTint="@color/colorPrimary"
         />
 
 </androidx.drawerlayout.widget.DrawerLayout>

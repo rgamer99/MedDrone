@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AnimationActivity">
+    tools:context=".AnimationActivity"
+    android:background="@drawable/bg_profile">
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottieAnimationView"
@@ -26,7 +27,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lottieAnimationView"
-        android:textSize="30sp"
-        android:textStyle="bold"/>
+        android:textSize="50sp"
+        android:textStyle="bold"
+        android:textColor="#e06666"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

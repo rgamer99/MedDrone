@@ -2,6 +2,7 @@ package com.rgoel.meddrone;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -9,12 +10,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.youtube.player.YouTubeBaseActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -26,7 +29,9 @@ public class HomeActivity extends AppCompatActivity {
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.navigation_view);
 
-        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 99);
+        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 99);
+        requestPermissions(new String[]{Manifest.permission.SEND_SMS}, 100);
+        requestPermissions(new String[]{Manifest.permission.INTERNET}, 100);
 
         toolBar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

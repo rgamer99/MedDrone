@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
@@ -13,6 +14,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -27,9 +29,14 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.ktx.Firebase;
 
 import java.util.ArrayList;
@@ -48,6 +55,9 @@ public class HelpMeActivity extends AppCompatActivity {
 
     private static final int PERMISSIONS_FINE_LOCATION = 99;
     TextView tv_lat, tv_lon, tv_altitude, tv_sensor, tv_updates, text_for_user;
+    DatabaseReference database;
+    String userUID, da_name;
+    String myLatitude, myLongitude, emergency_contact1, emergency_contact2;
 
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     Switch sw_locationupdates, sw_gps;
@@ -210,11 +220,33 @@ public class HelpMeActivity extends AppCompatActivity {
                 speak1(enaudio);
                 mTTS.setLanguage(new Locale("ja"));
                 speak1(japaudio);
+
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                userUID = user.getUid();
+                database = FirebaseDatabase.getInstance().getReference("Users");
+                database.child(userUID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+
+                        if (task.isSuccessful()){
+
+                            if(task.getResult().exists()){
+                                DataSnapshot dataSnapshot = task.getResult();
+                                emergency_contact1 = String.valueOf(dataSnapshot.child("ec1").getValue());
+                                emergency_contact2 = String.valueOf(dataSnapshot.child("ec2").getValue());
+                                da_name = String.valueOf(dataSnapshot.child("name").getValue());
+                            }
+
+                        }
+
+                    }
+                });
+
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        joinMeeting(HelpMeActivity.this, "6875350221", "Iamraghav", fuser.getDisplayName());
+                        joinMeeting(HelpMeActivity.this, "6875350221", "Iamraghav", da_name);
                         Log.d("Handler", "Running Handler");
                     }
                 }, 28000);
@@ -302,5 +334,28 @@ public class HelpMeActivity extends AppCompatActivity {
         params.meetingNo=meetingNumber;
         params.password=meetingPassword;
         meetingService.joinMeetingWithParams(context, params,options);
+    }
+
+    private void getUserData(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        userUID = user.getUid();
+        database = FirebaseDatabase.getInstance().getReference("Users");
+        database.child(userUID).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+
+                if (task.isSuccessful()){
+
+                    if(task.getResult().exists()){
+                        DataSnapshot dataSnapshot = task.getResult();
+                        emergency_contact1 = String.valueOf(dataSnapshot.child("ec1").getValue());
+                        emergency_contact2 = String.valueOf(dataSnapshot.child("ec2").getValue());
+                        da_name = String.valueOf(dataSnapshot.child("name").getValue());
+                    }
+
+                }
+
+            }
+        });
     }
 }

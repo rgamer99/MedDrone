@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainKotlinActivity"
-    tools:ignore="MissingClass">
+    tools:ignore="MissingClass"
+    android:background="@color/colorPrimary">
 
     <TextView
         android:id="@+id/tv_labellat"
@@ -16,7 +17,8 @@
         android:text="Latitude:"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/primarybackground"/>
 
     <TextView
         android:id="@+id/tv_lat"
@@ -26,7 +28,8 @@
         android:text="0.00"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tv_labellat"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/primarybackground"/>
 
     <TextView
         android:id="@+id/tv_labellon"
@@ -37,7 +40,8 @@
         android:text="Longitude:"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_labellat" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_labellat"
+        android:textColor="@color/primarybackground"/>
 
     <TextView
         android:id="@+id/tv_lon"
@@ -47,7 +51,8 @@
         android:text="0.00"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tv_labellon"
-        app:layout_constraintTop_toBottomOf="@+id/tv_lat" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_lat"
+        android:textColor="@color/primarybackground" />
 
     <TextView
         android:id="@+id/tv_labelaltitude"
@@ -58,7 +63,8 @@
         android:text="Altitude:"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_labellon" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_labellon"
+        android:textColor="@color/primarybackground"/>
 
     <TextView
         android:id="@+id/tv_altitude"
@@ -67,7 +73,8 @@
         android:text="0.00"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tv_labelaltitude"
-        app:layout_constraintTop_toTopOf="@+id/tv_labelaltitude" />
+        app:layout_constraintTop_toTopOf="@+id/tv_labelaltitude"
+        android:textColor="@color/primarybackground"/>
 
     <TextView
         android:id="@+id/tv_labelsensor"
@@ -78,7 +85,8 @@
         android:text="Sensor:"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sw_gps" />
+        app:layout_constraintTop_toBottomOf="@+id/sw_gps"
+        android:textColor="@color/primarybackground"/>
 
     <TextView
         android:id="@+id/tv_sensor"
@@ -87,7 +95,8 @@
         android:text="Using Cell Tower + Wifi"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tv_labelsensor"
-        app:layout_constraintTop_toTopOf="@+id/tv_labelsensor" />
+        app:layout_constraintTop_toTopOf="@+id/tv_labelsensor"
+        android:textColor="@color/primarybackground"/>
 
     <TextView
         android:id="@+id/tv_labelupdates"
@@ -98,7 +107,8 @@
         android:text="Updates:"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sw_locationsupdates" />
+        app:layout_constraintTop_toBottomOf="@+id/sw_locationsupdates"
+        android:textColor="@color/primarybackground" />
 
     <TextView
         android:id="@+id/tv_updates"
@@ -107,7 +117,8 @@
         android:text="On"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/tv_labelupdates"
-        app:layout_constraintTop_toTopOf="@+id/tv_labelupdates" />
+        app:layout_constraintTop_toTopOf="@+id/tv_labelupdates"
+        android:textColor="@color/primarybackground"/>
 
     <Switch
         android:id="@+id/sw_locationsupdates"
@@ -120,7 +131,9 @@
         app:layout_constraintHorizontal_bias="0.062"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+        tools:ignore="UseSwitchCompatOrMaterialXml"
+        android:textColor="@color/primarybackground"
+        android:textStyle="bold"/>
 
     <Switch
         android:id="@+id/sw_gps"
@@ -132,7 +145,9 @@
         app:layout_constraintHorizontal_bias="0.061"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_labelupdates"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+        tools:ignore="UseSwitchCompatOrMaterialXml"
+        android:textColor="@color/primarybackground"
+        android:textStyle="bold"/>
 
     <View
         android:id="@+id/divider"
@@ -141,7 +156,8 @@
         android:layout_marginTop="16dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_labelaltitude" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_labelaltitude"
+        android:textColor="@color/primarybackground"/>
 
     <View
         android:id="@+id/divider2"

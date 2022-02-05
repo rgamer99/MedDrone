@@ -4,18 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_profile"
     tools:context=".AboutUsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:gravity="center">
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textAlignment="center">
+
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Call Us at:- \n +91 xxxxxxxxxx \n Mail Us at:- \n meddrone0107@gmail.com"
             android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
             android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -28,6 +32,7 @@
             android:layout_height="wrap_content"
             android:text="MedDrone is a medical innovation \n created by \n - Raghav Goel \n - Justin Mathew"
             android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
             android:textSize="19dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -36,10 +41,12 @@
             app:layout_constraintVertical_bias="0.368" />
 
         <TextView
+            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Having issues with the app?? \n Check out our video on how to use \n it and its real life implementation:-"
             android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
             android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,6 +54,36 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.555" />
+
+
+        <FrameLayout
+            android:id="@+id/frameLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/buttonPlay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+            <VideoView
+                android:id="@+id/simulationVideo"
+                android:layout_width="300dp"
+                android:layout_height="150dp" />
+
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/buttonPlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:text="Play Simulation"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.939" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -22,6 +22,7 @@ import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import com.rgoel.meddrone.databinding.FragmentRegisterBinding
 import kotlinx.android.synthetic.main.fragment_register.*
 
 class RegisterFragment : Fragment() {
@@ -29,9 +30,13 @@ class RegisterFragment : Fragment() {
     private lateinit var password: EditText
     private lateinit var cnfPassword: EditText
     private lateinit var user_name: EditText
+    private lateinit var ec1: EditText
+    private lateinit var ec2: EditText
+    private lateinit var phone: EditText
     private lateinit var fAuth: FirebaseAuth
-    private var mDatabaseReference: DatabaseReference? = null
-    private var mDatabase: FirebaseDatabase? = null
+    private lateinit var binding: FragmentRegisterBinding
+    private lateinit var databse: DatabaseReference
+    private lateinit var userUID: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,10 +48,10 @@ class RegisterFragment : Fragment() {
         password = view.findViewById(R.id.reg_password)
         cnfPassword = view.findViewById(R.id.reg_cnf_password)
         user_name = view.findViewById(R.id.reg_name)
+        ec1 = view.findViewById(R.id.emergencycontact1)
+        ec2 = view.findViewById(R.id.emergencycontact2)
+        phone = view.findViewById(R.id.user_phone)
         fAuth = Firebase.auth
-
-        mDatabase = FirebaseDatabase.getInstance()
-        mDatabaseReference = mDatabase!!.reference!!.child("Users")
 
         view.findViewById<Button>(R.id.btn_login_reg).setOnClickListener {
             var navRegister = activity as FragmentNavigation
@@ -80,6 +85,18 @@ class RegisterFragment : Fragment() {
                 user_name.setError("Please Enter Your Name", icon)
                 btn_register_reg.isEnabled = false
             }
+            TextUtils.isEmpty(ec1.text.toString().trim())-> {
+                ec1.setError("Please Enter An Emergency Phone Number", icon)
+                btn_register_reg.isEnabled = false
+            }
+            TextUtils.isEmpty(ec2.text.toString().trim())-> {
+                ec2.setError("Please Enter An Emergency Phone Number", icon)
+                btn_register_reg.isEnabled = false
+            }
+            TextUtils.isEmpty(phone.text.toString().trim())-> {
+                phone.setError("Please Enter Your Phone Number", icon)
+                btn_register_reg.isEnabled = false
+            }
 
             username.text.toString().isNotEmpty() &&
                     password.text.toString().isNotEmpty() &&
@@ -90,7 +107,31 @@ class RegisterFragment : Fragment() {
                     if(password.text.toString().length>=6){
                         if(password.text.toString().matches(Regex("^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$"))){
                             if(password.text.toString() == cnfPassword.text.toString()){
-                                firebaseSignUp()
+                                if(phone.text.toString().length==10){
+                                    if (phone.text.toString().matches(Regex("[6-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]"))) {
+                                        if(ec1.text.toString().length==10){
+                                            if (ec1.text.toString().matches(Regex("[6-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]"))) {
+                                                if(ec2.text.toString().length==10){
+                                                    if (ec2.text.toString().matches(Regex("[6-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]+[0-9]"))) {
+                                                        firebaseSignUp()
+                                                    }else{
+                                                        ec2.setError("Emergency Phone Number should be a valid phone number.", icon)
+                                                    }
+                                                }else{
+                                                    ec2.setError("Emergency Phone Number should be 10 numbers long.", icon)
+                                                }
+                                            }else{
+                                                ec1.setError("Emergency Phone Number should be a valid phone number.", icon)
+                                            }
+                                        }else{
+                                            ec1.setError("Emergency Phone Number should be 10 numbers long.", icon)
+                                        }
+                                    }else{
+                                        phone.setError("Phone Number should be a phone valid phone number.", icon)
+                                    }
+                                }else{
+                                    phone.setError("Phone Number should be 10 numbers long.", icon)
+                                }
                             }else{
                                 cnfPassword.setError("Password doesn't match.", icon)
                             }
@@ -113,12 +154,17 @@ class RegisterFragment : Fragment() {
         fAuth.createUserWithEmailAndPassword(username.text.toString(), password.text.toString()).addOnCompleteListener{
             task->
             if(task.isSuccessful){
+
+                databse = FirebaseDatabase.getInstance().getReference("Users")
+                val User = User(user_name.text.toString(), phone.text.toString(), ec1.text.toString(), ec2.text.toString())
                 val user = Firebase.auth.currentUser
-                val profileUpdates = userProfileChangeRequest {
-                    displayName = user_name.text.toString()
+                user?.let {
+                    for (profile in it.providerData) {
+                        userUID = user.uid
+                    }
                 }
 
-                user!!.updateProfile(profileUpdates)
+                databse.child(userUID).setValue(User)
                     .addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(context,"Registration Successful", Toast.LENGTH_SHORT).show()
